@@ -1,0 +1,36 @@
+{
+  "name": "numblocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/min/index.js",
+  "scripts": {
+    "build": "npm run clean & tsc & npm run build_server & npm run build_client",
+    "build_server": ".\\node_modules\\.bin\\esbuild ./dist/full/* --minify --platform=node --outdir=./dist/min",
+    "build_client": ".\\node_modules\\.bin\\esbuild ./dist/full/public/js/*.js --minify --bundle --outdir=./dist/min/public/js & npm run build_styles & npx cpDirectory ./src/views ./dist/full/views -Q",
+    "build_styles": "npx mkdirp ./dist/min/public/css & npx postcss ./src/public/css/input.css > ./dist/min/public/css/style.css",
+    "clean": "rmdir /S /Q dist",
+    "start": "node dist/min/",
+    "do": "npm run build & npm run start"
+  },
+  "author": "riley0122",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "cpdirectory": "^1.0.1",
+    "cssnano": "^6.0.3",
+    "esbuild": "^0.20.0",
+    "mkdirp": "^3.0.1",
+    "postcss": "^8.4.35",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.19",
+    "dotenv": "^16.4.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
